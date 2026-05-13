@@ -1,11 +1,13 @@
 from typing import Dict
 
-from .bm25 import BM25Retriever
-from .dense import DenseRetriever
+from src.retrievers.base import BaseRetriever
+from src.retrievers.bm25 import BM25Retriever
+from src.retrievers.dense import DenseRetriever
 
 
-class HybridRetriever:
+class HybridRetriever(BaseRetriever):
     def __init__(self, bm25_retriever: BM25Retriever, dense_retriever: DenseRetriever, alpha: float = 0.5):
+        super().__init__(bm25_retriever.corpus_path)
         if not 0.0 <= alpha <= 1.0:
             raise ValueError("Alpha must be between 0.0 and 1.0.")
         self.bm25 = bm25_retriever
@@ -15,17 +17,15 @@ class HybridRetriever:
     def _normalize_scores(self, scores: list[float]) -> list[float]:
         if not scores:
             return []
-
         min_score = min(scores)
         max_score = max(scores)
         if min_score == max_score:
             return [1.0 for _ in scores]
-
         return [(score - min_score) / (max_score - min_score) for score in scores]
 
-    def retrieve(self, question: str, top_k: int = 10) -> list[dict]:
-        bm25_results = self.bm25.retrieve(question, top_k=top_k)
-        dense_results = self.dense.retrieve(question, top_k=top_k)
+    def retrieve(self, query: str, top_k: int = 10) -> list[dict]:
+        bm25_results = self.bm25.retrieve(query, top_k=top_k)
+        dense_results = self.dense.retrieve(query, top_k=top_k)
 
         merged: Dict[str, Dict[str, float]] = {}
         for item in bm25_results:
