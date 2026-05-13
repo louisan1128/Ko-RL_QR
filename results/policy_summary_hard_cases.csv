@@ -1,0 +1,9 @@
+﻿subset,retriever,policy_name,recall@1,recall@5,recall@10,mrr,avg_reward,num_records
+original_failed,bm25,always_expanded,0.0,0.0,0.0,0.0,-0.0125,1
+original_failed,bm25,always_keyword,0.0,0.0,0.0,0.0,0.0,1
+original_failed,bm25,always_prompt,0.0,0.0,0.0,0.0,0.0,1
+original_failed,bm25,always_structured,0.0,0.0,0.0,0.0,0.0,1
+original_failed,bm25,contextual_bandit,0.0,0.0,0.0,0.0,0.0,1
+original_failed,bm25,epsilon_greedy_bandit,0.0,0.0,0.0,0.0,0.0,1
+original_failed,bm25,oracle_best_strategy,0.0,0.0,0.0,0.0,0.0,1
+original_failed,bm25,original_only,0.0,0.0,0.0,0.0,0.0,1
