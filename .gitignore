@@ -12,3 +12,5 @@ venv/
 
 # raw data
 data/raw/
+
+embeddings/
